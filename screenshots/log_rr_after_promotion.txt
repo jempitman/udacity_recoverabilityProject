@@ -1,0 +1,92 @@
+[ec2-user@ip-10-2-10-156 ~]$ mysql -u admin -p`MY_PASSWORD` -h readreplica-database-1-secondary.covlw5rll7np.us-west-2.rds.amazonaws.com -P 3306
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 90
+Server version: 8.0.33 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> use udacity
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [udacity]> SELECT * FROM customer;
++----+-------+--------------+
+| id | name  | phone_number |
++----+-------+--------------+
+|  1 | john  | 0123456789   |
+|  3 | peter | 0125412389   |
++----+-------+--------------+
+2 rows in set (0.001 sec)
+
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('thomas', '9012345765');
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('thomas', '9012345765');
+ERROR 2006 (HY000): MySQL server has gone away
+No connection. Trying to reconnect...
+Connection id:    9
+Current database: udacity
+
+Query OK, 1 row affected (0.028 sec)
+
+MySQL [udacity]> exit
+Bye
+[ec2-user@ip-10-2-10-156 ~]$ exit
+logout
+Connection to ec2-35-160-140-183.us-west-2.compute.amazonaws.com closed.
+(base) jeremy@Adminpcallebes-MacBook-Pro Downloads % ssh -i "UdacityRecoverability_SecondaryPem.pem" ec2-user@ec2-35-160-140-183.us-west-2.compute.amazonaws.com
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Tue Dec  5 15:05:11 2023 from 109.129.219.94
+[ec2-user@ip-10-2-10-156 ~]$ mysql -u admin -p`MY_PASSWORD` -h readreplica-database-1-secondary.covlw5rll7np.us-west-2.rds.amazonaws.com -P 3306
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.33 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> use udacity;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('thomas', '9012345765');
+Query OK, 1 row affected (0.012 sec)
+
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('mark', '9017865765');
+Query OK, 1 row affected (0.012 sec)
+
+MySQL [udacity]> SELECT * FROM customer;
++----+--------+--------------+
+| id | name   | phone_number |
++----+--------+--------------+
+|  1 | john   | 0123456789   |
+|  3 | peter  | 0125412389   |
+|  4 | thomas | 9012345765   |
+|  5 | thomas | 9012345765   |
+|  6 | mark   | 9017865765   |
++----+--------+--------------+
+5 rows in set (0.001 sec)
+
+MySQL [udacity]> DELETE FROM customer where name='mark';
+Query OK, 1 row affected (0.012 sec)
+
+MySQL [udacity]> exit
+Bye
+[ec2-user@ip-10-2-10-156 ~]$ exit
+logout
+Connection to ec2-35-160-140-183.us-west-2.compute.amazonaws.com closed.
