@@ -1,0 +1,43 @@
+1. Minimum RTO for a single AZ outage
+For a platform/site reliability team of 2 people (1 on call and the other not but still on back up duty) working in
+the same AZ as an overnight outage, an RTO of 1.25hrs is anticipated. This estimate is based on the following timeline
+calculation:
+
+00:00 - Problem happens (0 minutes)
+00:05 - An amount of time passes before an alert triggers (5 minutes)
+00:06 - Alert triggers on-all staff (1 minute)
+00:16 - On-call staff may need to get out of bed, get to computer, log in, log onto VPN (10 minutes)
+00:26 - On-call staff starts diagnosing issue (10 minutes)
+00:51 - Root cause is discovered (25 minutes)
+01:01 - Remediation started (10 minutes)
+01:11 - Remediation completed (10 minutes)
+
+Total time = 71 minutes
+RTO is 1.25hrs
+
+2. Minimum RTO for a single region outage
+For a platform/site reliability team of 2 people (1 on call and the other not but still on back up duty) working in
+the same region as an overnight outage, an RTO of 1hr45min is anticipated. This estimate is based on the following timeline
+calculation:
+
+00:00 - Problem happens (0 minutes)
+00:05 - An amount of time passes before an alert triggers (5 minutes)
+00:06 - Alert triggers on-all staff (1 minute)
+00:26 - On-call staff may need to get out of bed, get to computer, log in, log onto VPN (20 minutes)
+00:36 - On-call staff starts diagnosing issue (10 minutes)
+00:56 - Root cause is discovered (20 minutes)
+01:11 - Remediation is started (15 minutes)
+01:41 - Remediation completed (30 minutes)
+
+Total time = 101 minutes
+RTO is 1.75hrs
+
+3. Minimum RPO for a single AZ
+Assuming the backup frequency on a db is every 5 minutes and 3 back up checkpoints are missed before the platform engineering
+team confirm that an AZ is down; 10 minutes for the team to identify the last reliable back up point; and a further
+10 minutes to roll the database back, the minimum RPO for a single AZ would be 40 minutes.
+
+4. Minimum RPO for a single region
+Assuming the backup frequency on a db is every 5 minutes and 5 back up checkpoints are missed before the platform engineering
+team confirm that a whole region is down; 15 minutes for the team to identify the last reliable back up point on the
+back up db; and a further 15 minutes to promote the backup db to production, the minimum RPO for a single region would be 1 hr.
