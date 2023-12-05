@@ -12,8 +12,7 @@ Downloads %  ssh -i "UdacityRecoverability_PrimaryPem.pem" ec2-user@ec2-44-197-1
        _/m/'
 Last login: Tue Dec  5 13:58:39 2023 from 109.129.219.94
 [ec2-user@ip-10-1-10-92 ~]$ mysql -u admin -p`MY_PASSWORD` -h database-1.chph1oqrv9xq.us-east-1.rds.amazonaws.com -P 3306
--bash: MY_PASSWORD: command not found
-Enter password:
+
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MySQL connection id is 98
 Server version: 8.0.33 Source distribution
