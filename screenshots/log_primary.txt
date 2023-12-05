@@ -1,0 +1,76 @@
+Downloads %  ssh -i "UdacityRecoverability_PrimaryPem.pem" ec2-user@ec2-44-197-123-147.compute-1.amazonaws.com
+
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Tue Dec  5 13:58:39 2023 from 109.129.219.94
+[ec2-user@ip-10-1-10-92 ~]$ mysql -u admin -p`MY_PASSWORD` -h database-1.chph1oqrv9xq.us-east-1.rds.amazonaws.com -P 3306
+-bash: MY_PASSWORD: command not found
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 98
+Server version: 8.0.33 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| udacity            |
++--------------------+
+5 rows in set (0.001 sec)
+
+MySQL [(none)]> use udacity
+Database changed
+MySQL [udacity]> CREATE TABLE customer (id bigint NOT NULL AUTO_INCREMENT, name varchar(255), phone_number varchar(255), PRIMARY KEY (id));
+Query OK, 0 rows affected (0.241 sec)
+
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('john', '0123456789');
+Query OK, 1 row affected (0.009 sec)
+
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('claire', '0125436789');
+Query OK, 1 row affected (0.009 sec)
+
+MySQL [udacity]> INSERT INTO customer (name, phone_number) VALUES ('peter', '0125412389');
+Query OK, 1 row affected (0.009 sec)
+
+MySQL [udacity]> SELECT * FROM customer;
++----+--------+--------------+
+| id | name   | phone_number |
++----+--------+--------------+
+|  1 | john   | 0123456789   |
+|  2 | claire | 0125436789   |
+|  3 | peter  | 0125412389   |
++----+--------+--------------+
+3 rows in set (0.001 sec)
+
+MySQL [udacity]> DELETE FROM customer WHERE id=2;
+Query OK, 1 row affected (0.009 sec)
+
+MySQL [udacity]> SELECT * FROM customer;
++----+-------+--------------+
+| id | name  | phone_number |
++----+-------+--------------+
+|  1 | john  | 0123456789   |
+|  3 | peter | 0125412389   |
++----+-------+--------------+
+2 rows in set (0.002 sec)
+MySQL [udacity]> exit
+Bye
+[ec2-user@ip-10-1-10-92 ~]$ exit
+logout
+Connection to ec2-44-197-123-147.compute-1.amazonaws.com closed.
